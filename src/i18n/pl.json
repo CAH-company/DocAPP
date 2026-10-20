@@ -1,0 +1,32 @@
+{
+  "app": {
+    "name": "Obieg rachunków",
+    "tagline": "Umowy zlecenia, oświadczenia i rachunki w jednym miejscu"
+  },
+  "demo": {
+    "banner": "Wersja demonstracyjna — nie wgrywaj prawdziwych dokumentów ani danych osobowych"
+  },
+  "bill": {
+    "noCalculationNotice": "Rachunek zawiera kwotę brutto. Składki ZUS i zaliczka na podatek nie są tu obliczane."
+  },
+  "auth": {
+    "invalidCredentials": "Nieprawidłowy e-mail lub hasło.",
+    "locked": "Logowanie jest chwilowo niedostępne. Spróbuj ponownie za kilka minut.",
+    "reauthFailed": "Nie udało się potwierdzić tożsamości."
+  },
+  "mail": {
+    "reset": {
+      "subject": "Reset hasła",
+      "body": "Aby ustawić nowe hasło, otwórz link (ważny 1 godzinę):",
+      "ignore": "Jeśli to nie Ty, zignoruj tę wiadomość."
+    },
+    "invite": {
+      "subject": "Zaproszenie do systemu obiegu rachunków",
+      "body": "Zaproszono Cię do systemu. Aby ustawić hasło i rozpocząć, otwórz link (ważny 72 godziny):",
+      "ignore": "Jeśli nie spodziewałeś(-aś) się tej wiadomości, zignoruj ją."
+    }
+  },
+  "rodo": {
+    "clause": "TODO: weryfikacja prawnika. Domyślna klauzula informacyjna RODO do uzupełnienia przez administratora danych (firmę): tożsamość administratora, cele i podstawy przetwarzania, okres przechowywania, prawa osoby (dostęp, sprostowanie, usunięcie, przenoszenie), prawo skargi do Prezesa UODO."
+  }
+}

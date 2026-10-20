@@ -1,0 +1,9 @@
+# Nadpisania dla DEMO (zakłada COMPOSE_PROFILES zawierające "mailpit"; ustawia to install.sh --demo)
+services:
+  app:
+    environment:
+      DEMO_MODE: "true"
+      SMTP_HOST: mailpit
+      SMTP_PORT: "1025"
+      SMTP_ALLOW_INSECURE: "true"
+      MAX_UPLOAD_MB: "5"

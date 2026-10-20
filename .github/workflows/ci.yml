@@ -1,0 +1,60 @@
+name: CI
+
+on:
+  push: { branches: [main] }
+  pull_request:
+
+permissions:
+  contents: read
+  packages: write
+  security-events: write
+
+jobs:
+  test:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm }
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm audit --omit=dev --audit-level=high
+      - run: npm run build
+        env:
+          APP_URL: https://ci.example
+      - name: Skan sekretów (gitleaks)
+        uses: gitleaks/gitleaks-action@v2
+        env: { GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}" }
+
+  shellcheck:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - run: shellcheck -x scripts/*.sh backup/*.sh deploy/db-init.sh
+
+  image:
+    needs: [test]
+    runs-on: ubuntu-24.04
+    strategy:
+      matrix: { target: [app, migrate] }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-buildx-action@v3
+      - uses: docker/build-push-action@v6
+        with:
+          context: .
+          target: ${{ matrix.target }}
+          load: true
+          tags: obieg-rachunkow-${{ matrix.target }}:ci
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+      - name: Trivy (CRITICAL blokuje)
+        uses: aquasecurity/trivy-action@0.28.0
+        with:
+          image-ref: obieg-rachunkow-${{ matrix.target }}:ci
+          severity: CRITICAL
+          exit-code: "1"
+          ignore-unfixed: true
+      # TODO: push do GHCR z tagami semver po utworzeniu repo (job release na tag v*)

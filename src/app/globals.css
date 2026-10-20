@@ -1,0 +1,6 @@
+@import "tailwindcss";
+
+/* Fonty self-hosted dochodzą w E4 (bez zewnętrznych CDN). */
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
