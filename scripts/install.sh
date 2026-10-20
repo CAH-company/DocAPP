@@ -108,7 +108,7 @@ if [ "$SRC_DIR" != "$APP_DIR" ]; then cp -a "$SRC_DIR/." "$APP_DIR/"; fi
 umask 077
 cp "${DEPLOY_DIR}/.env.example" "${DEPLOY_DIR}/.env"
 chmod 600 "${DEPLOY_DIR}/.env"
-chown root:root "${DEPLOY_DIR}/.env"
+$IS_ROOT && chown root:root "${DEPLOY_DIR}/.env" || true
 
 MASTER_KEY=$(gen_hex 32); RESTIC_PASSWORD=$(gen_pass)
 env_set DOMAIN "$DOMAIN"; env_set ADMIN_EMAIL "$ADMIN_EMAIL"; env_set APP_URL "https://${DOMAIN}"
