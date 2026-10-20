@@ -135,7 +135,7 @@ services:
       - ${BACKUP_DISK_PATH:-/mnt/backup}:/backup-disk
     depends_on:
       db: { condition: service_healthy }
-    cap_add: [DAC_READ_SEARCH]
+    cap_add: [DAC_OVERRIDE] # zapis na dysk backupu należący do innego uid + odczyt plików aplikacji
     networks: [internal, web] # web: wyjście do S3 off-site
     deploy: { resources: { limits: { memory: 512m, cpus: "0.5" } } }
 

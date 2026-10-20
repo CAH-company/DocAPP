@@ -33,6 +33,8 @@ ARG APP_VERSION=dev
 ENV APP_VERSION=${APP_VERSION}
 COPY --from=build --chown=node:node /app/.next/standalone ./
 COPY --from=build --chown=node:node /app/.next/static ./.next/static
+# Katalog plików należy do node: nowy wolumen dziedziczy właściciela z obrazu
+RUN mkdir -p /data/files && chown node:node /data/files
 USER node
 EXPOSE 3000
 CMD ["node", "server.js"]
